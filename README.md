@@ -27,6 +27,8 @@ Na tomto mieste je ale vhodné zdôrazniť, že zložitejšie a výpočtovo nár
 
 ## Zaujímavé odkazy
 [Advent of Code](https://adventofcode.com/) - zaujímavé programovacie hlavolamy
+
 [CodeWars](https://www.codewars.com/) - učenie sa jazyka C na riešení príkladov so stúpajúcou zložitosťou
+
 [Online kompiler pre jazyk C](https://www.programiz.com/c-programming/online-compiler/) - keď chcete niečo rýchlo otestovať
 
