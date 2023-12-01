@@ -1,4 +1,4 @@
-**
+/**
  * Kostra programu pro praci s polem.
  * 2020, Ales Smrcka
  */
@@ -28,8 +28,8 @@ void person_ctor(Person *p, unsigned year, const char *name)
 void person_dtor(Person *p)
 {
     p->year = 0;
+    free(p->name);
     p->name = NULL;
-    // chyba! neni uvolnovana pamet pro jmeno
 }
 
 // Presune data osoby src na dst
@@ -42,9 +42,8 @@ void person_move(Person *src, Person *dst)
 // Vraci NULL, pokud se nepovedlo
 void *person_copy(Person *src, Person *dst)
 {
-    *dst = *src;
+    person_ctor(dst, src->year, src->name);
     return dst;
-    // chyba! Neni provadena kopie jmena a roku
 }
 
 // Zameni data dvou zaznamu
@@ -76,8 +75,13 @@ void array_ctor(PersonArray *a)
 void array_dtor(PersonArray *a)
 {
     if (a->len)
+    {
+        for (unsigned int i = 0; i < a->len; i++)
+        {
+            person_dtor(&a->data[i]);
+        }
         free(a->data);
-    // chyba! Je potreba zlikvidovat postupne vsechny zaznamy.
+    }
 }
 
 // Zvetsi velikost pole o 1 (increment).
@@ -115,13 +119,26 @@ void array_remove(PersonArray *a, unsigned int idx)
 // Vyuzijte funkci person_cmp
 unsigned int array_find_min(PersonArray *a, int idx)
 {
-    // TODO
+    unsigned int min = idx;
+    for (int i = idx + 1; i < a->len; i++)
+    {
+        if (person_cmp(&a->data[i], &a->data[min]) < 0)
+        {
+            min = i;
+        }
+    }
+    
+    return min;
 }
 
 // Seradi osoby v poli podle jejich roku (a pripadne jmena)
 void array_sort(PersonArray *a)
 {
-    // TODO
+    unsigned int min = 0;
+    for (int i = 0; i < a->len - 1; i++) {
+        min = array_find_min(a, i);
+        person_swap(&a->data[i], &a->data[min]);
+    }
 }
 
 void array_print(PersonArray *a)
@@ -178,3 +195,4 @@ int main()
     array_dtor(&a);
     return 0;
 }
+

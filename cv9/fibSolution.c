@@ -20,9 +20,13 @@ ull nf = 0;
  */
 ull fib(ull n)
 {
-    ull result;
-    // TODO
-    return result;
+    nf++;
+    if (n == 0) {
+        return 0;
+    } else if (n == 1) {
+        return 1;
+    }
+    return fib(n - 1) + fib(n - 2);
 }
 
 int main(int argc, char **argv)
@@ -33,6 +37,7 @@ int main(int argc, char **argv)
     n = strtoul(argv[1], NULL, 10);
 
     printf("fib(%llu) = %llu\n", n, fib(n));
-    //printf("nf = %llu\n", nf);
+    printf("nf = %llu\n", nf);
     return 0;
 }
+
